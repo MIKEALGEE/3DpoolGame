@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GameState" load_steps=2 format=3 uid="uid://brqcyxdbt18gy"]
+
+[ext_resource type="Script" path="res://scripts/game_state.gd" id="1_ythuq"]
+
+[resource]
+script = ExtResource("1_ythuq")
+current_player_id = 0
+current_play_state = 0
+ball_suit_by_player_id = Array[int]([4, 4])
+balls_remaining_by_player_id = Array[int]([1, 1])

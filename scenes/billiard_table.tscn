@@ -1,0 +1,229 @@
+[gd_scene load_steps=9 format=3 uid="uid://cou7el1wa4sk5"]
+
+[ext_resource type="PackedScene" uid="uid://bfl373ifwaugi" path="res://assets/Billiard Table.blend" id="1_l63f7"]
+[ext_resource type="Script" path="res://scripts/billiard_table.gd" id="2_ur4sm"]
+[ext_resource type="PackedScene" uid="uid://bjc268n7spvfb" path="res://scenes/pocket.tscn" id="3_u6sjh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3vpjh"]
+size = Vector3(2.12917, 0.001, 1.09827)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_w8h88"]
+bounce = 0.3
+absorbent = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w4g66"]
+size = Vector3(0.956836, 1, 0.0500205)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wckrl"]
+size = Vector3(0.158841, 0.0889311, 0.0480035)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k6815"]
+size = Vector3(3.84241, 0.0484098, 2.75261)
+
+[node name="Billiard Table" instance=ExtResource("1_l63f7")]
+script = ExtResource("2_ur4sm")
+
+[node name="Billiard Table_Fabric" parent="." index="0"]
+transform = Transform3D(1.34099, 0, 0, 0, 1.34099, 0, 0, 0, 1.34099, 0, 0, 0)
+
+[node name="Billiard Table_Walls" parent="." index="1"]
+transform = Transform3D(1.34099, 0, 0, 0, 1.34099, 0, 0, 0, 1.34099, 0, 0, 0)
+
+[node name="Billiard Table_Pocket Gold" parent="." index="2"]
+transform = Transform3D(1.34099, 0, 0, 0, 1.34099, 0, 0, 0, 1.34099, 0, 0, 0)
+
+[node name="Billiard Table_Wood" parent="." index="3"]
+transform = Transform3D(1.34099, 0, 0, 0, 1.34099, 0, 0, 0, 1.34099, 0, 0, 0)
+
+[node name="Billiard Table_Golds" parent="." index="4"]
+transform = Transform3D(1.34099, 0, 0, 0, 1.34099, 0, 0, 0, 1.34099, 0, 0, 0)
+
+[node name="Billiard Table_Legs" parent="." index="5"]
+transform = Transform3D(1.34099, 0, 0, 0, 1.34099, 0, 0, 0, 1.34099, 0, 0, 0)
+
+[node name="Billiard Table_Plastic Grids" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="9 Ball" parent="." index="7"]
+visible = false
+
+[node name="8 Ball" parent="." index="8"]
+visible = false
+
+[node name="14 Ball" parent="." index="9"]
+visible = false
+
+[node name="15 Ball" parent="." index="10"]
+visible = false
+
+[node name="3 Ball" parent="." index="11"]
+visible = false
+
+[node name="10 Ball" parent="." index="12"]
+visible = false
+
+[node name="11 Ball" parent="." index="13"]
+visible = false
+
+[node name="5 Ball" parent="." index="14"]
+visible = false
+
+[node name="4 Ball" parent="." index="15"]
+visible = false
+
+[node name="12 Ball" parent="." index="16"]
+visible = false
+
+[node name="7 Ball" parent="." index="17"]
+visible = false
+
+[node name="13 Ball" parent="." index="18"]
+visible = false
+
+[node name="2 Ball" parent="." index="19"]
+visible = false
+
+[node name="6 Ball" parent="." index="20"]
+visible = false
+
+[node name="White" parent="." index="21"]
+visible = false
+
+[node name="1 Ball" parent="." index="22"]
+visible = false
+
+[node name="Cue 1" parent="." index="23"]
+visible = false
+
+[node name="Cues 2" parent="." index="24"]
+visible = false
+
+[node name="Surface" type="StaticBody3D" parent="." index="25"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Surface" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00865555, -0.000894159, 0.000693323)
+shape = SubResource("BoxShape3D_3vpjh")
+
+[node name="Walls" type="StaticBody3D" parent="." index="26"]
+physics_material_override = SubResource("PhysicsMaterial_w8h88")
+
+[node name="Cushion" type="CollisionShape3D" parent="Walls" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.551897, 0, 0.576827)
+shape = SubResource("BoxShape3D_w4g66")
+
+[node name="Cushion2" type="CollisionShape3D" parent="Walls" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54298, 0, 0.572658)
+shape = SubResource("BoxShape3D_w4g66")
+
+[node name="Cushion3" type="CollisionShape3D" parent="Walls" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.551897, 0, -0.565939)
+shape = SubResource("BoxShape3D_w4g66")
+
+[node name="Cushion4" type="CollisionShape3D" parent="Walls" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.54298, 0, -0.565939)
+shape = SubResource("BoxShape3D_w4g66")
+
+[node name="Cushion5" type="CollisionShape3D" parent="Walls" index="4"]
+transform = Transform3D(-0.0137877, 0, -0.999905, 0, 1, 0, 0.999905, 0, -0.0137877, 1.10515, 0, 0.000883728)
+shape = SubResource("BoxShape3D_w4g66")
+
+[node name="Cushion6" type="CollisionShape3D" parent="Walls" index="5"]
+transform = Transform3D(-0.0137877, 0, -0.999905, 0, 1, 0, 0.999905, 0, -0.0137877, -1.10213, 0, 0.000883728)
+shape = SubResource("BoxShape3D_w4g66")
+
+[node name="PocketCushion" type="CollisionShape3D" parent="Walls" index="6"]
+transform = Transform3D(-0.572289, 0, 0.820052, 0, 1, 0, -0.820052, 0, -0.572289, -0.0562146, 0.0165545, 0.6267)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion2" type="CollisionShape3D" parent="Walls" index="7"]
+transform = Transform3D(-0.662607, 0, -0.748967, 0, 1, 0, 0.748967, 0, -0.662607, 0.0419703, 0.0111372, 0.625116)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion3" type="CollisionShape3D" parent="Walls" index="8"]
+transform = Transform3D(0.611182, 0, -0.79149, 0, 1, 0, 0.79149, 0, 0.611182, 0.041875, 0.0165545, -0.622553)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion4" type="CollisionShape3D" parent="Walls" index="9"]
+transform = Transform3D(0.625706, 0, 0.780059, 0, 1, 0, -0.780059, 0, 0.625706, -0.0561193, 0.0111372, -0.616234)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion5" type="CollisionShape3D" parent="Walls" index="10"]
+transform = Transform3D(-0.70994, 0, 0.704263, 0, 1, 0, -0.704263, 0, -0.70994, -1.07401, 0.0111372, -0.629256)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion6" type="CollisionShape3D" parent="Walls" index="11"]
+transform = Transform3D(-0.739208, 0, 0.673477, 0, 1, 0, -0.673477, 0, -0.739208, -1.1586, 0.0111372, -0.509663)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion9" type="CollisionShape3D" parent="Walls" index="12"]
+transform = Transform3D(0.712981, 0, 0.701183, 0, 1, 0, -0.701183, 0, 0.712981, 1.16778, 0.0111372, -0.526432)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion10" type="CollisionShape3D" parent="Walls" index="13"]
+transform = Transform3D(0.68256, 0, 0.73083, 0, 1, 0, -0.73083, 0, 0.68256, 1.04924, 0.0111372, -0.612488)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion7" type="CollisionShape3D" parent="Walls" index="14"]
+transform = Transform3D(-0.748678, 0, -0.662934, 0, 1, 0, 0.662934, 0, -0.748678, -1.17324, 0.0111372, 0.521644)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion8" type="CollisionShape3D" parent="Walls" index="15"]
+transform = Transform3D(-0.719849, 0, -0.694131, 0, 1, 0, 0.694131, 0, -0.719849, -1.05937, 0.0111372, 0.623016)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion11" type="CollisionShape3D" parent="Walls" index="16"]
+transform = Transform3D(0.701718, 0, -0.712455, 0, 1, 0, 0.712455, 0, 0.701718, 1.06635, 0.0111372, 0.627559)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion12" type="CollisionShape3D" parent="Walls" index="17"]
+transform = Transform3D(0.731342, 0, -0.682011, 0, 1, 0, 0.682011, 0, 0.731342, 1.15232, 0.0111372, 0.508956)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion13" type="CollisionShape3D" parent="Walls" index="18"]
+transform = Transform3D(-0.713361, 0, -0.700797, 0, 1, 0, 0.700797, 0, -0.713361, 1.15232, 0.0305127, 0.616707)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion14" type="CollisionShape3D" parent="Walls" index="19"]
+transform = Transform3D(0.712541, 0, -0.701631, 0, 1, 0, 0.701631, 0, 0.712541, 1.15232, 0.0305127, -0.641112)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion15" type="CollisionShape3D" parent="Walls" index="20"]
+transform = Transform3D(0.999151, 0, -0.0411957, 0, 1, 0, 0.0411955, 0, 0.999151, 0.0126693, 0.0305127, -0.662367)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion16" type="CollisionShape3D" parent="Walls" index="21"]
+transform = Transform3D(0.667508, 0, 0.744603, 0, 1, 0, -0.744603, 0, 0.667508, -1.17155, 0.0305127, -0.625731)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="PocketCushion17" type="CollisionShape3D" parent="Walls" index="22"]
+transform = Transform3D(-0.712651, 0, 0.701519, 0, 1, 0, -0.701519, 0, -0.712651, -1.17155, 0.0305127, 0.62231)
+shape = SubResource("BoxShape3D_wckrl")
+
+[node name="Headspot" type="Node3D" parent="." index="27"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.534828, 0, 0)
+
+[node name="Pocket" parent="." index="28" instance=ExtResource("3_u6sjh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.26123, -0.121205, -0.647578)
+
+[node name="Pocket7" parent="." index="29" instance=ExtResource("3_u6sjh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.595527, 0)
+
+[node name="CollisionShape3D" parent="Pocket7" index="0"]
+shape = SubResource("BoxShape3D_k6815")
+
+[node name="Pocket2" parent="." index="30" instance=ExtResource("3_u6sjh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25171, -0.121205, 0.639402)
+
+[node name="Pocket3" parent="." index="31" instance=ExtResource("3_u6sjh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.23849, -0.121205, 0.639402)
+
+[node name="Pocket4" parent="." index="32" instance=ExtResource("3_u6sjh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.23849, -0.121205, -0.632347)
+
+[node name="Pocket5" parent="." index="33" instance=ExtResource("3_u6sjh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0180339, -0.121205, -0.697077)
+
+[node name="Pocket6" parent="." index="34" instance=ExtResource("3_u6sjh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0180339, -0.121205, 0.686998)
+
+[editable path="Pocket7"]

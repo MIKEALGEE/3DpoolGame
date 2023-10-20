@@ -1,0 +1,205 @@
+[gd_scene load_steps=20 format=3 uid="uid://fge4g424x155"]
+
+[ext_resource type="PackedScene" uid="uid://cou7el1wa4sk5" path="res://scenes/billiard_table.tscn" id="1_pp1f8"]
+[ext_resource type="Script" path="res://scripts/over_head_cam.gd" id="1_wq8nu"]
+[ext_resource type="PackedScene" uid="uid://cidky6ebc0efa" path="res://scenes/ball.tscn" id="2_k76jn"]
+[ext_resource type="Resource" uid="uid://brqcyxdbt18gy" path="res://Resources/release_game_state.tres" id="4_0bpd0"]
+[ext_resource type="Script" path="res://scripts/play_system.gd" id="4_m7ofk"]
+[ext_resource type="ArrayMesh" uid="uid://cmwvrdap5gsny" path="res://assets/cue.res" id="5_i4r2l"]
+[ext_resource type="Script" path="res://scripts/ball_rack.gd" id="6_78fgl"]
+[ext_resource type="Script" path="res://scripts/rule_processer.gd" id="7_wmgd0"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="9_lrgyy"]
+[ext_resource type="LabelSettings" uid="uid://qp8ablcrltgw" path="res://Resources/hud_font_settings.tres" id="10_63ixp"]
+[ext_resource type="Script" path="res://scripts/game_over_label.gd" id="11_6naja"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mp23j"]
+sky_top_color = Color(0.443137, 0.54902, 0.415686, 1)
+sky_horizon_color = Color(0.610784, 0.622549, 0.648039, 1)
+sky_energy_multiplier = 0.5
+ground_bottom_color = Color(0.0941176, 0.0980392, 0.301961, 1)
+ground_horizon_color = Color(0.610784, 0.622549, 0.648039, 1)
+
+[sub_resource type="Sky" id="Sky_2bana"]
+sky_material = SubResource("ProceduralSkyMaterial_mp23j")
+
+[sub_resource type="Environment" id="Environment_8oufw"]
+background_mode = 2
+sky = SubResource("Sky_2bana")
+tonemap_mode = 2
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 0.4
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8ajbj"]
+radius = 0.14401
+height = 1.24933
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3f8s6"]
+transparency = 1
+albedo_color = Color(0.878431, 0.176471, 0.27451, 0.462745)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ypcrk"]
+size = Vector3(1, 0.001, 1)
+
+[sub_resource type="Animation" id="Animation_87xeh"]
+resource_name = "shoot_stick"
+length = 0.5
+step = 0.01
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_strike_ball"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AimContainer/CueStickContainer/CueStick:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.11, 0.24, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 2,
+"values": [Vector3(2.08165e-12, -0.002, 0.76), Vector3(2.08165e-12, -0.002, 1.4), Vector3(2.08165e-12, -0.002, 0.75), Vector3(2.08165e-12, -0.002, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4ps5f"]
+_data = {
+"shoot_stick": SubResource("Animation_87xeh")
+}
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8oufw")
+
+[node name="OverheadCam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.222365, 0.974963, 0, -0.974963, 0.222365, 0, 1.0557, 0.310483)
+current = true
+script = ExtResource("1_wq8nu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.385117, 0.922868, 0, -0.922868, -0.385117, 0, 9.95325, -4.85439)
+light_energy = 2.0
+shadow_enabled = true
+shadow_bias = 0.05
+
+[node name="Billard_table" parent="." instance=ExtResource("1_pp1f8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0782932, 0)
+rotation_edit_mode = 2
+
+[node name="PlaySystem" type="Node3D" parent="." node_paths=PackedStringArray("_cue_ball", "_aim_container", "_cue_stick", "_stick_animation_player", "_aim_cam")]
+script = ExtResource("4_m7ofk")
+_cue_ball = NodePath("CueBall")
+_aim_container = NodePath("AimContainer")
+_cue_stick = NodePath("AimContainer/CueStickContainer/CueStick")
+_stick_animation_player = NodePath("AnimationPlayer")
+_aim_cam = NodePath("AimContainer/AimCam")
+_game_state = ExtResource("4_0bpd0")
+_stick_min_z = 0.762
+_stick_max_z = 1.205
+_shot_power_max = 6.0
+
+[node name="CueBall" parent="PlaySystem" instance=ExtResource("2_k76jn")]
+
+[node name="AimContainer" type="Node3D" parent="PlaySystem"]
+transform = Transform3D(1, 0, 0, 0, 0.998632, -0.0522837, 0, 0.0522837, 0.998632, 2.08165e-12, 0.0330383, 0.0119779)
+
+[node name="AimCam" type="Camera3D" parent="PlaySystem/AimContainer"]
+transform = Transform3D(1, 0, 0, 0, 0.759759, 0.650205, 0, -0.650205, 0.759759, 0, 0.488669, 0.76307)
+current = true
+fov = 60.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlaySystem/AimContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.92397)
+visible = false
+shape = SubResource("CapsuleShape3D_8ajbj")
+
+[node name="CueStickContainer" type="Node3D" parent="PlaySystem/AimContainer"]
+transform = Transform3D(1, 0, 0, 0, 0.99558, 0.0939172, 0, -0.0939172, 0.99558, 0, 0, 0)
+
+[node name="CueStick" type="Node3D" parent="PlaySystem/AimContainer/CueStickContainer"]
+transform = Transform3D(1, 0, 0, 0, 0.99964, 0.0268399, 0, -0.0268399, 0.99964, 2.08165e-12, -0.002, 1)
+metadata/_edit_group_ = true
+
+[node name="CueStickMesh" type="MeshInstance3D" parent="PlaySystem/AimContainer/CueStickContainer/CueStick"]
+transform = Transform3D(0.999903, 0.0139283, 0.000973955, 6.09831e-09, -0.0697565, 0.997564, 0.0139623, -0.997467, -0.0697497, 0, 0.0384867, 0)
+mesh = ExtResource("5_i4r2l")
+skeleton = NodePath("../../../../..")
+
+[node name="LazerSight" type="CSGCylinder3D" parent="PlaySystem/AimContainer/CueStickContainer/CueStick"]
+transform = Transform3D(1, 0, 0, 0, -0.0395389, 0.999219, 0, -0.999219, -0.0395389, -0.00195822, 0.0213638, -0.794588)
+radius = 0.001
+height = 0.5
+material = SubResource("StandardMaterial3D_3f8s6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlaySystem/AimContainer/CueStickContainer"]
+visible = false
+shape = SubResource("BoxShape3D_ypcrk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlaySystem"]
+libraries = {
+"": SubResource("AnimationLibrary_4ps5f")
+}
+
+[node name="BallRack" type="Node3D" parent="PlaySystem"]
+script = ExtResource("6_78fgl")
+_ball_tscn = ExtResource("2_k76jn")
+
+[node name="RuleProcesser" type="Node" parent="."]
+script = ExtResource("7_wmgd0")
+_game_state = ExtResource("4_0bpd0")
+
+[node name="HUD" type="MarginContainer" parent="." node_paths=PackedStringArray("_player_label", "_instructions_label", "_temp_game_state_label")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+script = ExtResource("9_lrgyy")
+_player_label = NodePath("PlayerLabel")
+_instructions_label = NodePath("InstructionsLabel")
+_temp_game_state_label = NodePath("TempGameState")
+_game_state = ExtResource("4_0bpd0")
+
+[node name="PlayerLabel" type="Label" parent="HUD"]
+layout_mode = 2
+text = "Player 1"
+label_settings = ExtResource("10_63ixp")
+
+[node name="InstructionsLabel" type="Label" parent="HUD"]
+layout_mode = 2
+text = "Aim and Shoot"
+label_settings = ExtResource("10_63ixp")
+horizontal_alignment = 1
+
+[node name="TempGameState" type="Label" parent="HUD"]
+layout_mode = 2
+label_settings = ExtResource("10_63ixp")
+horizontal_alignment = 2
+
+[node name="GameOverLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PLAYER X Wins! "
+label_settings = ExtResource("10_63ixp")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("11_6naja")
+
+[connection signal="animation_finished" from="PlaySystem/AnimationPlayer" to="PlaySystem" method="_on_animation_player_animation_finished"]
